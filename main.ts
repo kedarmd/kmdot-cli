@@ -1,5 +1,6 @@
 import { parseArgs } from "@std/cli/parse-args";
 import {
+  setCodeTheme,
   setNvimTheme,
   setStarshipTheme,
   setWeztermTheme,
@@ -42,6 +43,7 @@ async function main() {
     setStarshipTheme({ theme, setThemeCallback: setTheme }),
     setNvimTheme({ theme, setThemeCallback: setTheme }),
     setWeztermTheme({ theme, setThemeCallback: setTheme }),
+    setCodeTheme({ theme }),
   ];
   await Promise.all(promises);
 }
