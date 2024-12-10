@@ -14,11 +14,13 @@ const setTheme = async (
   try {
     const sourceContent = await Deno.readTextFile(sourcePath);
     await Deno.writeTextFile(targetPath, sourceContent);
-    config && console.info(`${config} theme changed to ${theme}`);
     cb && cb();
   } catch (error) {
     const err = error as Error;
-    console.error(`Error while updating theme: ${err}`, err.message);
+    console.error(
+      `Error while updating theme ${theme} for ${config}: ${err}`,
+      err.message,
+    );
   }
 };
 
