@@ -13,9 +13,9 @@ const CODE_THEMES: Record<string, string> = {
  * @param {string} theme
  * @returns {Promise<void>}
  */
-export async function setCodeTheme({ theme }: {
+const setCodeTheme = async ({ theme }: {
   theme: string;
-}) {
+}): Promise<void> => {
   const codeSettingsPath = joinGlobs([
     Deno.env.get("HOME")!,
     ".config",
@@ -29,4 +29,6 @@ export async function setCodeTheme({ theme }: {
     codeSettingsPath,
     JSON.stringify(codeConfig, null, 2),
   );
-}
+};
+
+export { setCodeTheme };

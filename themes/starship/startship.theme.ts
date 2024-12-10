@@ -1,15 +1,12 @@
 import { joinGlobs } from "@std/path/join-globs";
-import { SetTheme } from "../../types.ts";
+import { SetConfigTheme } from "../../types.ts";
 
 /**
  * Function to update Startship theme
  */
-export function setStarshipTheme(
-  { theme, setThemeCallback }: {
-    theme: string;
-    setThemeCallback: (param: SetTheme) => Promise<void>;
-  },
-) {
+const setStarshipTheme = async (
+  { theme, setThemeCallback }: SetConfigTheme,
+) => {
   const targetPath = joinGlobs([
     Deno.env.get("HOME")!,
     "development",
@@ -25,5 +22,7 @@ export function setStarshipTheme(
     "starship",
     `${theme}.toml`,
   ]);
-  setThemeCallback({ theme, sourcePath, targetPath, config: "Starship" });
-}
+  await setThemeCallback({ theme, sourcePath, targetPath, config: "Starship" });
+};
+
+export { setStarshipTheme };

@@ -1,11 +1,8 @@
 import { joinGlobs } from "@std/path/join-globs";
-import { SetTheme } from "../../types.ts";
+import { SetConfigTheme } from "../../types.ts";
 
-export const setNvimTheme = async (
-  { theme, setThemeCallback }: {
-    theme: string;
-    setThemeCallback: (param: SetTheme) => Promise<void>;
-  },
+const setNvimTheme = async (
+  { theme, setThemeCallback }: SetConfigTheme,
 ) => {
   const sourcePath = joinGlobs([
     Deno.env.get("HOME")!,
@@ -55,3 +52,5 @@ const getNvimServers = async () => {
   }
   return servers;
 };
+
+export { setNvimTheme };

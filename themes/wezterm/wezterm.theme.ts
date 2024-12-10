@@ -1,12 +1,7 @@
 import { joinGlobs } from "@std/path/join-globs";
-import { SetTheme } from "../../types.ts";
+import { SetConfigTheme } from "../../types.ts";
 
-export function setWeztermTheme(
-  { theme, setThemeCallback }: {
-    theme: string;
-    setThemeCallback: (param: SetTheme) => Promise<void>;
-  },
-) {
+const setWeztermTheme = async ({ theme, setThemeCallback }: SetConfigTheme) => {
   const sourcePath = joinGlobs([
     Deno.env.get("HOME")!,
     "development",
@@ -27,11 +22,13 @@ export function setWeztermTheme(
     "dotfiles",
     "wezterm.lua",
   ]);
-  setThemeCallback({ theme, sourcePath, targetPath });
-  setThemeCallback({
+  await setThemeCallback({ theme, sourcePath, targetPath });
+  await setThemeCallback({
     theme,
     sourcePath: wezterFilePath,
     targetPath: wezterFilePath,
     config: "Wezterm",
   });
-}
+};
+
+export { setWeztermTheme };
