@@ -35,7 +35,7 @@ async function main() {
   });
   const { theme } = parsedArgs;
   if (!theme || !THEME_NAMES.includes(theme)) {
-    console.log(`Usage: kmdot < ${THEME_NAMES.join(" | ")} >`);
+    console.log(`Usage: kmdot -t < ${THEME_NAMES.join(" | ")} >`);
     Deno.exit(1);
   }
   const promises = [
