@@ -38,7 +38,7 @@ const setNvimTheme = async (
       }
     }, 2000);
   };
-  setThemeCallback({ sourcePath, targetPath, theme, cb, config: "Neovim" });
+  setThemeCallback({ sourcePath, targetPath, theme, cb, config: "Nvim" });
 };
 
 const getNvimServers = async () => {
