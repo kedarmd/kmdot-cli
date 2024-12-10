@@ -8,6 +8,11 @@ const CODE_THEMES: Record<string, string> = {
   "tokyonight": "Tokyo Night",
 };
 
+/**
+ * Function to update Code theme
+ * @param {string} theme
+ * @returns {Promise<void>}
+ */
 export async function setCodeTheme({ theme }: {
   theme: string;
 }) {
