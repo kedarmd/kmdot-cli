@@ -26,7 +26,6 @@ export const setNvimTheme = async (
     "colorscheme.lua",
   ]);
   const servers = await getNvimServers();
-  console.info("Live Neovim Servers: ", servers);
   const cb = () => {
     setTimeout(() => {
       for (const server of servers) {
