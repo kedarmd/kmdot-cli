@@ -8,6 +8,23 @@ const CODE_THEMES: Record<string, string> = {
   "tokyonight": "Tokyo Night",
 };
 
+const LINUX_CODE_SETTINGS_PATH = joinGlobs([
+  Deno.env.get("HOME")!,
+  ".config",
+  "Code",
+  "User",
+  "settings.json",
+]);
+
+const MAC_CODE_SETTINGS_PATH = joinGlobs([
+  Deno.env.get("HOME")!,
+  "Library",
+  "Application Support",
+  "Code",
+  "User",
+  "settings.json",
+]);
+
 /**
  * Function to update Code theme
  * @param {string} theme
@@ -16,13 +33,10 @@ const CODE_THEMES: Record<string, string> = {
 const setCodeTheme = async ({ theme }: {
   theme: string;
 }): Promise<void> => {
-  const codeSettingsPath = joinGlobs([
-    Deno.env.get("HOME")!,
-    ".config",
-    "Code",
-    "User",
-    "settings.json",
-  ]);
+  const os = Deno.build.os;
+  const codeSettingsPath = os === "linux"
+    ? LINUX_CODE_SETTINGS_PATH
+    : MAC_CODE_SETTINGS_PATH;
   const codeConfig = JSON.parse(await Deno.readTextFile(codeSettingsPath));
   codeConfig["workbench.colorTheme"] = CODE_THEMES[theme];
   await Deno.writeTextFile(
