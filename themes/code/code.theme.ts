@@ -26,7 +26,7 @@ const MAC_CODE_SETTINGS_PATH = joinGlobs([
 ]);
 
 /**
- * Function to update Code theme
+ * Function to update VS Code theme
  * @param {string} theme
  * @returns {Promise<void>}
  */
@@ -38,11 +38,16 @@ const setCodeTheme = async ({ theme }: {
     ? LINUX_CODE_SETTINGS_PATH
     : MAC_CODE_SETTINGS_PATH;
   const codeConfig = JSON.parse(await Deno.readTextFile(codeSettingsPath));
-  codeConfig["workbench.colorTheme"] = CODE_THEMES[theme];
-  await Deno.writeTextFile(
-    codeSettingsPath,
-    JSON.stringify(codeConfig, null, 2),
-  );
+  const vscodeTheme = CODE_THEMES[theme];
+  if (vscodeTheme) {
+    codeConfig["workbench.colorTheme"] = vscodeTheme;
+    await Deno.writeTextFile(
+      codeSettingsPath,
+      JSON.stringify(codeConfig, null, 2),
+    );
+    return;
+  }
+  console.error(`Theme ${theme} not found for VS Code`);
 };
 
 export { setCodeTheme };
