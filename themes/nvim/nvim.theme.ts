@@ -2,7 +2,7 @@ import { joinGlobs } from "@std/path/join-globs";
 import { SetConfigTheme } from "../../types.ts";
 
 const setNvimTheme = async (
-  { theme, setThemeCallback }: SetConfigTheme,
+  { theme: { theme, variant }, setThemeCallback }: SetConfigTheme,
 ) => {
   const sourcePath = joinGlobs([
     Deno.env.get("HOME")!,
@@ -25,13 +25,16 @@ const setNvimTheme = async (
   const servers = await getNvimServers();
   const cb = () => {
     setTimeout(() => {
+      const nvimCommand = variant
+        ? `:colorscheme ${theme}-${variant}<CR>`
+        : `:colorscheme ${theme}<CR>`;
       for (const server of servers) {
         const command = new Deno.Command("nvim", {
           args: [
             "--server",
             `/tmp/${server}`,
             "--remote-send",
-            `:colorscheme ${theme}<CR>`,
+            nvimCommand,
           ],
         });
         command.output();
