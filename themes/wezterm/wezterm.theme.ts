@@ -1,7 +1,9 @@
 import { joinGlobs } from "@std/path/join-globs";
 import { SetConfigTheme } from "../../types.ts";
 
-const setWeztermTheme = async ({ theme, setThemeCallback }: SetConfigTheme) => {
+const setWeztermTheme = async (
+  { theme: { theme }, setThemeCallback }: SetConfigTheme,
+) => {
   const sourcePath = joinGlobs([
     Deno.env.get("HOME")!,
     "development",

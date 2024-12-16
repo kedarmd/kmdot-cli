@@ -1,4 +1,7 @@
 {
+  "name": "kmdot-cli",
+  "exports": "./main.ts",
+  "version": "1.0.1",
   "tasks": {
     "dev": "deno run --allow-read --allow-write --allow-env --allow-run --watch main.ts",
     "run": "deno run --allow-read --allow-write --allow-env --allow-run main.ts",

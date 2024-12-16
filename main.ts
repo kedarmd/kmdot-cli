@@ -32,7 +32,7 @@ async function main() {
       setStarshipTheme({ theme, setThemeCallback: setTheme }),
       setNvimTheme({ theme, setThemeCallback: setTheme }),
       setWeztermTheme({ theme, setThemeCallback: setTheme }),
-      setCodeTheme({ theme }),
+      setCodeTheme(theme),
     ];
     await Promise.all(promises);
   } catch (error) {

@@ -5,7 +5,7 @@ import { SetConfigTheme } from "../../types.ts";
  * Function to update Startship theme
  */
 const setStarshipTheme = async (
-  { theme, setThemeCallback }: SetConfigTheme,
+  { theme: { theme, variant }, setThemeCallback }: SetConfigTheme,
 ) => {
   const targetPath = joinGlobs([
     Deno.env.get("HOME")!,

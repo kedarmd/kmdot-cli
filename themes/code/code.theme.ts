@@ -1,11 +1,26 @@
 import { joinGlobs } from "@std/path/join-globs";
+import { ThemeV2 } from "../../types.ts";
 
-const CODE_THEMES: Record<string, string> = {
-  "catppuccin": "Catppuccin Mocha",
-  "nord": "Nord",
-  "nordic": "Nord",
-  "onedark": "One Dark Pro",
-  "tokyonight": "Tokyo Night",
+const CODE_THEMES: Record<
+  ThemeV2["theme"],
+  Record<string | "default", string> | null
+> = {
+  "catppuccin": {
+    mocha: "Catppuccin Mocha",
+    frappe: "Catppuccin Frappé",
+    latte: "Catppuccin Latte",
+    macchiato: "Catppuccin Macchiato",
+    default: "Catppuccin Mocha",
+  },
+  "tokyonight": {
+    moon: "Tokyo Night",
+    night: "Tokyo Night",
+    storm: "Tokyo Night Storm",
+    default: "Tokyo Night",
+  },
+  "nord": { default: "Nord" },
+  "nordic": { default: "Nord" },
+  "onedark": { default: "One Dark Pro" },
 };
 
 const LINUX_CODE_SETTINGS_PATH = joinGlobs([
@@ -27,19 +42,19 @@ const MAC_CODE_SETTINGS_PATH = joinGlobs([
 
 /**
  * Function to update VS Code theme
- * @param {string} theme
+ * @param {ThemeV2} theme
  * @returns {Promise<void>}
  */
-const setCodeTheme = async ({ theme }: {
-  theme: string;
-}): Promise<void> => {
+const setCodeTheme = async ({ theme, variant }: ThemeV2): Promise<void> => {
   const os = Deno.build.os;
   const codeSettingsPath = os === "linux"
     ? LINUX_CODE_SETTINGS_PATH
     : MAC_CODE_SETTINGS_PATH;
-  const codeConfig = JSON.parse(await Deno.readTextFile(codeSettingsPath));
-  const vscodeTheme = CODE_THEMES[theme];
+  const vscodeTheme = variant
+    ? CODE_THEMES[theme]?.[variant]
+    : CODE_THEMES[theme]?.default;
   if (vscodeTheme) {
+    const codeConfig = JSON.parse(await Deno.readTextFile(codeSettingsPath));
     codeConfig["workbench.colorTheme"] = vscodeTheme;
     await Deno.writeTextFile(
       codeSettingsPath,
