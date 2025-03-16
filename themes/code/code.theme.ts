@@ -1,5 +1,5 @@
 import { joinGlobs } from "@std/path/join-globs";
-import { ThemeV2 } from "../../types.ts";
+import type { ThemeV2 } from "../../types.ts";
 
 const CODE_THEMES: Record<
   ThemeV2["theme"],

@@ -4,7 +4,7 @@ import {
   setStarshipTheme,
   setWeztermTheme,
 } from "./themes/index.ts";
-import { SetTheme } from "./types.ts";
+import type { SetTheme } from "./types.ts";
 import { argParser } from "./helpers/parser.ts";
 
 const setTheme = async (
